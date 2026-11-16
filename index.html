@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self' data:; connect-src 'none'; base-uri 'none'; form-action 'none';">
+  <title>Student PDF Batch Renamer</title>
+  <link rel="stylesheet" href="./src/app.css">
+</head>
+<body>
+  <div class="container">
+    <header class="header">
+      <div>
+        <h1>Student PDF Batch Renamer</h1>
+        <p>Extrae y renombra entregas masivas de estudiantes (.zip de Moodle, Canvas o Teams) directamente en tu navegador.</p>
+      </div>
+      <span class="privacy-badge">100% Local • Cero Red</span>
+    </header>
+
+    <section class="controls-grid">
+      <div class="control-group">
+        <label for="input-delimiter">Delimitador de carpeta</label>
+        <input type="text" id="input-delimiter" value="_" maxlength="5">
+      </div>
+      <div class="control-group">
+        <label for="input-part-index">Posición del nombre (0 = primero)</label>
+        <input type="number" id="input-part-index" value="0" min="0" max="10">
+      </div>
+    </section>
+
+    <div class="dropzone" id="dropzone">
+      <h2>Arrastra aquí el archivo .zip de entregas o haz clic para seleccionarlo</h2>
+      <p>Todo se procesa en la memoria de tu navegador; ningún archivo sale de tu computadora.</p>
+      <input type="file" id="zip-input" class="hidden-input" accept=".zip">
+    </div>
+
+    <div class="toolbar">
+      <div class="stats" id="stats-text">0 PDF(s) listos para exportar</div>
+      <div class="export-actions">
+        <button type="button" class="btn btn-success" id="btn-export-zip" disabled>Descargar Paquete ZIP</button>
+        <button type="button" class="btn" id="btn-save-folder" disabled title="Disponible en Chrome/Edge sobre HTTPS o localhost">Guardar en Carpeta</button>
+        <button type="button" class="btn btn-secondary" id="btn-download-individual" disabled>Descargar Sueltos</button>
+      </div>
+    </div>
+
+    <div class="status-bar" id="status-bar">Listo. Selecciona un archivo .zip para comenzar.</div>
+
+    <section class="table-card">
+      <table>
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Ruta original en el ZIP</th>
+            <th>Nombre base (editable)</th>
+            <th>Archivo final</th>
+          </tr>
+        </thead>
+        <tbody id="results-body"></tbody>
+      </table>
+    </section>
+  </div>
+
+  <script src="./vendor/jszip.min.js"></script>
+  <script src="./src/renamer.js"></script>
+  <script src="./src/app.js"></script>
+</body>
+</html>
